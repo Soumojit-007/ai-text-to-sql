@@ -1,0 +1,51 @@
+# Framework
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+asyncpg
+alembic
+
+# Config & Validation
+pydantic
+pydantic-settings
+python-dotenv
+email-validator
+
+# Security
+passlib[bcrypt]
+bcrypt>=4.0.1
+python-jose
+python-multipart
+
+# Redis & Queue
+redis
+celery
+flower
+
+# AI / LLM
+langchain
+langgraph
+openai
+google-generativeai
+langchain-google-genai
+
+# Vector DB
+chromadb
+faiss-cpu
+click
+# SQL Processing
+sqlparse
+sqlglot
+
+# Utilities
+loguru
+httpx
+orjson
+tenacity
+
+# Testing
+pytest
+h11

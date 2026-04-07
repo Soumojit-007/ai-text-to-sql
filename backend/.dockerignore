@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+venv/
+.env/
+
+# Logs
+logs/
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Docker
+docker-compose.yml
+
+# Tests
+tests/
+
+# Cache
+.cache/
+.pytest_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Node (if any later)
+node_modules/
+
+# Misc
+*.sqlite3
+*.db
