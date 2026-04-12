@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard";
 import History from "../pages/History";
 import ProtectedRoute from "../components/common/ProtectedRoute";
 import { useAuthStore } from "../store/useAuthStore";
+import Upload from "../pages/Upload";
 
 export default function AppRoutes() {
   const token = useAuthStore((s) => s.token);
@@ -31,6 +32,14 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <History />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/upload"
+        element={
+          <ProtectedRoute>
+            <Upload />
           </ProtectedRoute>
         }
       />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "@/services/api";
+import { getHistory } from "../../services/historyService"; // ✅ FIXED
 import Loader from "../common/Loader";
 import HistoryCard from "./HistoryCard";
 import { toastError } from "../common/Toast";
@@ -11,8 +11,8 @@ export default function HistoryList() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await api.get("/history");
-        setData(res.data);
+        const res = await getHistory(); // ✅ use service
+        setData(res);
       } catch {
         toastError("Failed to load history");
       } finally {
@@ -24,6 +24,10 @@ export default function HistoryList() {
   }, []);
 
   if (loading) return <Loader />;
+
+  if (!data.length) {
+    return <p className="text-gray-400">No history available</p>;
+  }
 
   return (
     <div className="space-y-4">

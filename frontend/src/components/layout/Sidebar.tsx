@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, History } from "lucide-react";
+import { LayoutDashboard, History ,Upload } from "lucide-react";
 import clsx from "clsx";
 
 export default function Sidebar() {
@@ -23,6 +23,10 @@ export default function Sidebar() {
       <Link to="/history" className={navItem("/history")}>
         <History size={18} />
         History
+      </Link>
+
+      <Link to="/upload" className={navItem("/upload")}>
+      <Upload size={18}/>
       </Link>
     </div>
   );

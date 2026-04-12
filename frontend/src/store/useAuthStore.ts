@@ -5,7 +5,7 @@ interface AuthState{
     logout: () => void;
 }
 export const useAuthStore = create<AuthState>((set) => ({
-  token: localStorage.getItem("token"),
+  token: localStorage.getItem("token") || null,
   setToken: (token) => {
     localStorage.setItem("token", token);
     set({ token });

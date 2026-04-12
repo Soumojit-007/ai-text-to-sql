@@ -1,6 +1,7 @@
 export default function ResultTable({ data }: { data: any }) {
-  if (!data || data.length === 0)
-    return <p className="text-gray-400">No results</p>;
+  if (!Array.isArray(data) || data.length === 0) {
+    return <p className="text-gray-400">No results found</p>;
+  }
 
   const columns = Object.keys(data[0]);
 
@@ -21,7 +22,7 @@ export default function ResultTable({ data }: { data: any }) {
             <tr key={i} className="border-t border-white/10">
               {columns.map((col) => (
                 <td key={col} className="p-2">
-                  {row[col]}
+                  {row[col] ?? "-"} {/* ✅ safe fallback */}
                 </td>
               ))}
             </tr>
