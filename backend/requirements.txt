@@ -1,7 +1,7 @@
 # Framework
 fastapi
 uvicorn[standard]
-
+pandas
 # Database
 sqlalchemy
 psycopg2-binary
@@ -49,3 +49,4 @@ tenacity
 # Testing
 pytest
 h11
+openpyxl

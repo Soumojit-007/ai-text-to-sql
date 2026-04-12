@@ -6,6 +6,7 @@ from typing import Any, List, Optional
 # Request Schema
 class QueryRequest(BaseModel):
     question: str
+    context: Optional[str] = None
 
 
 # Response Schema

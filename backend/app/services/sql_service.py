@@ -9,8 +9,8 @@ def generate_sql(question: str) -> str:
 
     prompt = f"""
     You are an expert SQL generator.
+    You are given database schema:
 
-    Schema:
     {schema_context}
 
     Convert the following question into SQL:
@@ -22,3 +22,10 @@ def generate_sql(question: str) -> str:
     response = llm.invoke(prompt)
 
     return response.content.strip()
+
+def clean_sql(sql: str) -> str:
+    sql = sql.replace("```sql", "").replace("```", "").strip()
+    sql = sql.rstrip(";")
+    if "limit" not in sql.lower():
+        sql += " LIMIT 100"
+    return sql

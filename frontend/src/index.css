@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Dark Theme */
+body {
+  @apply bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white;
+  font-family: system-ui, sans-serif;
+}
+
+/* Glass Effect Utility */
+.glass {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl;
+}

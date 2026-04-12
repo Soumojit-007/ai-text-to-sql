@@ -1,22 +1,28 @@
 import sqlparse
-from app.core.constants import BLOCKED_SQL_KEYWORDS, ALLOWED_SQL_OPERATIONS
+import re
+from app.core.constants import BLOCKED_SQL_KEYWORDS
 
 
 def validate_sql(query: str):
     if not query:
         return False, "Empty query"
 
-    query_lower = query.lower()
+    query_lower = query.lower().strip()
 
-    # Block dangerous operations
+    # ✅ Allow only safe starting operations
+    if not re.match(r"^(select|insert|update|delete|with)\b", query_lower):
+        return False, "Invalid SQL operation"
+
+    # ✅ Block dangerous keywords (strict)
     for keyword in BLOCKED_SQL_KEYWORDS:
-        if keyword in query_lower:
+        if re.search(rf"\b{keyword}\b", query_lower):
             return False, f"Blocked keyword detected: {keyword}"
 
-    # Allow only basic operations
-    if not query_lower.startswith(tuple(ALLOWED_SQL_OPERATIONS)):
-        return False, "Only SELECT/INSERT/UPDATE/DELETE allowed"
+    # ✅ Extra hard safety
+    if any(k in query_lower for k in ["drop", "truncate", "alter"]):
+        return False, "Dangerous operation detected"
 
+    # ✅ Syntax validation
     try:
         parsed = sqlparse.parse(query)
         if not parsed:

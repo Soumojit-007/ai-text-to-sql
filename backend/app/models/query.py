@@ -12,3 +12,4 @@ class Query(Base):
     sql_query = Column(Text)
     result = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
+    user_id = Column(Integer , nullable=True)

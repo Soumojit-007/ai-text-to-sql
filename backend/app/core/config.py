@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from typing import List
 
 
 class Settings(BaseSettings):
@@ -12,9 +13,8 @@ class Settings(BaseSettings):
     # Redis
     REDIS_URL: str
 
-    # LLM
-    OPENAI_API_KEY: str | None = None
-    GOOGLE_API_KEY: str | None = None
+    # LLM (MULTI KEY SUPPORT)
+    GOOGLE_API_KEYS: str  # comma-separated keys
 
     # Security
     SECRET_KEY: str
@@ -23,6 +23,11 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
+    # 🔥 Convert string → list
+    @property
+    def api_keys_list(self) -> List[str]:
+        return [key.strip() for key in self.GOOGLE_API_KEYS.split(",")]
 
 
 @lru_cache
