@@ -11,7 +11,7 @@ export default function ModeToggle() {
           mode === "generate" ? "bg-white/20" : "bg-white/5"
         }`}
       >
-        🧠 Generate SQL
+        Generate SQL
       </button>
 
       <button
@@ -20,7 +20,7 @@ export default function ModeToggle() {
           mode === "query" ? "bg-white/20" : "bg-white/5"
         }`}
       >
-        ⚙️ Query Data
+        Query Data
       </button>
     </div>
   );

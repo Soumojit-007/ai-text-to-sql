@@ -11,7 +11,7 @@ export default function ProtectedRoute({ children }: Props) {
 
   // Optional: handle loading state if you add it later
   if (!token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth" replace />;
   }
 
   return <>{children}</>;
