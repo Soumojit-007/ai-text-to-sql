@@ -20,31 +20,39 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="glass p-4 space-y-3">
-      <label htmlFor="file-input" className="block text-sm font-medium">
-        Select CSV OR Excel Files
-      </label>
-      <input
-        id="file-input"
-        type="file"
-        multiple
-        accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        placeholder="Choose CSV files"
-        onChange={(e) => setFiles(Array.from(e.target.files || []))}
-      />
+    <div className="bg-white/5 backdrop-blur-xl p-5 rounded-xl border border-white/10 space-y-4">
 
-      {files.length === 0 && (
-        <p className="text-xs text-gray-400">No files selected</p>
+      <label className="cursor-pointer flex flex-col items-center justify-center border border-dashed border-white/20 rounded-xl p-6 hover:bg-white/5 transition">
+        <span className="text-sm text-gray-400">
+          Click or drag files to upload
+        </span>
+
+        <input
+          type="file"
+          multiple
+          accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          onChange={(e) => setFiles(Array.from(e.target.files || []))}
+          className="hidden"
+        />
+      </label>
+
+      {files.length === 0 ? (
+        <p className="text-xs text-gray-400 text-center">
+          No files selected
+        </p>
+      ) : (
+        files.map((f, i) => (
+          <p key={i} className="text-xs text-gray-300">
+            {f.name}
+          </p>
+        ))
       )}
-      {files.map((f, i) => (
-        <p key={i} className="text-xs">{f.name}</p>
-      ))}
 
       <button
         onClick={handleUpload}
-        className="px-4 py-2 bg-white/10 rounded"
+        className="w-full py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition"
       >
-        Upload CSV
+        Upload Files
       </button>
     </div>
   );

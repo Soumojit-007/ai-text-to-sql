@@ -36,24 +36,25 @@ export default function QueryBox() {
   };
 
   return (
-    <div className="glass p-6 space-y-4">
+    <div className="bg-white/5 backdrop-blur-xl p-6 space-y-5 rounded-xl border border-white/10 shadow-xl">
       <textarea
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
         placeholder="Ask your database anything..."
-        className="w-full h-28 bg-transparent resize-none"
+        className="w-full h-28 bg-white/5 p-3 rounded-lg border border-white/10 focus:border-blue-500 outline-none"
       />
 
       <textarea
         value={context}
         onChange={(e) => setContext(e.target.value)}
         placeholder="Additional Context (Optional)"
-        className="w-full h-20 bg-transparent resize-none text-xs text-gray-400"
+        className="w-full h-20 bg-white/5 p-3 rounded-lg border border-white/10 focus:border-purple-500 outline-none text-xs"
       />
 
       <button
         onClick={handleSubmit}
-        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg"
+        disabled={loading}
+        className="flex items-center gap-2 px-5 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg shadow-md transition disabled:opacity-50"
       >
         <Send size={16} />
         {mode === "generate" ? "Generate SQL" : "Run Query"}

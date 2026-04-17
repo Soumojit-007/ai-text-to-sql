@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { generateQuery } from "../services/queryService";
+import { generateSQL } from "../services/queryService";
 
 export const useQuery = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ export const useQuery = () => {
     try {
       setLoading(true);
       setError("");
-      const res = await generateQuery(question);
+      const res = await generateSQL(question);
       setData(res);
     } catch (err) {
       setError("Failed to fetch query");
@@ -21,3 +21,7 @@ export const useQuery = () => {
 
   return { runQuery, data, loading, error };
 };
+
+// function generateQuery(question: string) {
+//   throw new Error("Function not implemented.");
+// }

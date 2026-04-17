@@ -18,7 +18,7 @@ export default function AppRoutes() {
       {/* Auth Page */}
       <Route
         path="/auth"
-        element={token ? <Navigate to="/dashboard" /> : <Auth />}
+        element={token ? <Navigate to="/dashboard" replace /> : <Auth />}
       />
 
       {/* Protected */}
@@ -50,7 +50,7 @@ export default function AppRoutes() {
       />
 
       {/* Fallback */}
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

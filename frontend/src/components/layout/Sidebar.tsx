@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, History ,Upload } from "lucide-react";
+import { LayoutDashboard, History, Upload } from "lucide-react";
 import clsx from "clsx";
 
 export default function Sidebar() {
@@ -14,7 +14,9 @@ export default function Sidebar() {
     );
 
   return (
-    <div className="glass w-64 h-full p-4 flex flex-col gap-2">
+    <div className="w-64 h-full p-5 flex flex-col gap-3 border-r border-white/10 bg-white/5 backdrop-blur-xl">
+      <h2 className="text-xl font-bold mb-4">QueryForge</h2>
+
       <Link to="/dashboard" className={navItem("/dashboard")}>
         <LayoutDashboard size={18} />
         Dashboard
@@ -26,7 +28,8 @@ export default function Sidebar() {
       </Link>
 
       <Link to="/upload" className={navItem("/upload")}>
-      <Upload size={18}/>
+        <Upload size={18} />
+        Upload
       </Link>
     </div>
   );

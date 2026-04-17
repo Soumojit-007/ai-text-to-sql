@@ -11,30 +11,42 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto space-y-8">
 
+        {/* Mode Toggle */}
         <ModeToggle />
 
+        {/* Warning */}
         {mode === "query" && uploadedTables.length === 0 && (
-          <div className="glass p-4 text-yellow-400 text-sm">
-            Upload data first before querying ⚠️
+          <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-sm px-4 py-3 rounded-xl">
+            ⚠️ Upload data first before querying
           </div>
         )}
 
+        {/* Upload */}
         <FileUpload />
 
+        {/* Query */}
         <QueryBox />
 
+        {/* SQL Output */}
         {sql && (
-          <div>
-            <h3 className="text-sm text-gray-400 mb-2">Generated SQL</h3>
+          <div className="space-y-2">
+            <h3 className="text-sm text-gray-400 tracking-wide">
+              Generated SQL
+            </h3>
+
             <SQLViewer sql={sql} />
           </div>
         )}
 
+        {/* Result */}
         {mode === "query" && result && (
-          <div>
-            <h3 className="text-sm text-gray-400 mb-2">Result</h3>
+          <div className="space-y-2">
+            <h3 className="text-sm text-gray-400 tracking-wide">
+              Result
+            </h3>
+
             <ResultTable data={result} />
           </div>
         )}
