@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface QueryState {
   question: string;
@@ -15,24 +16,45 @@ interface QueryState {
   clear: () => void;
 }
 
-export const useQueryStore = create<QueryState>((set) => ({
-  question: "",
-  sql: "",
-  result: null,
-  mode: "generate",
-  context: "",
-  uploadedTables: [],
+export const useQueryStore = create<QueryState>()(
+  persist(
+    (set) => ({
+      question: "",
+      sql: "",
+      result: null,
+      mode: "generate",
+      context: "",
+      uploadedTables: [],
 
-  setData: (data) =>
-    set({
-      question: data.question,
-      sql: data.sql,
-      result: data.result,
+      setData: (data) =>
+        set({
+          question: data.question,
+          sql: data.sql || data.sql_query, // ✅ safe mapping
+          result: data.result ?? null,
+        }),
+
+      setMode: (mode) => set({ mode }),
+      setContext: (context) => set({ context }),
+
+      setUploadedTables: (tables) =>
+        set({
+          uploadedTables:
+            tables && tables.length > 0 ? tables : ["uploaded"], // ✅ fallback
+        }),
+
+      clear: () =>
+        set({
+          question: "",
+          sql: "",
+          result: null,
+        }),
     }),
-
-  setMode: (mode) => set({ mode }),
-  setContext: (context) => set({ context }),
-  setUploadedTables: (tables) => set({ uploadedTables: tables }),
-
-  clear: () => set({ question: "", sql: "", result: null }),
-}));
+    {
+      name: "query-storage", // 🔥 persists in localStorage
+      partialize: (state) => ({
+        uploadedTables: state.uploadedTables,
+        mode: state.mode,
+      }), // ✅ only persist needed fields
+    }
+  )
+);

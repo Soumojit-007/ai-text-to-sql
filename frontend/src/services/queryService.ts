@@ -1,4 +1,4 @@
-import { form } from "framer-motion/client";
+// import { form } from "framer-motion/client";
 import api from "./api";
 
 export const generateSQL = async(question: string , context?: string) =>{

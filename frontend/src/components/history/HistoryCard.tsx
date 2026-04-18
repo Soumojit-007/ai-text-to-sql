@@ -2,8 +2,10 @@ import { Copy } from "lucide-react";
 import { toastSuccess } from "../common/Toast";
 
 export default function HistoryCard({ item }: any) {
+
+  const sql = item.sql_query || item.sql || "No SQL available";
   const copySQL = () => {
-    navigator.clipboard.writeText(item.sql_query);
+    navigator.clipboard.writeText(sql);
     toastSuccess("Copied!");
   };
 

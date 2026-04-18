@@ -12,7 +12,9 @@ export default function HistoryList() {
     const fetchHistory = async () => {
       try {
         const res = await getHistory(); // ✅ use service
-        setData(res);
+        console.log("HISTORY: " , res);
+        
+        setData(res.history || res);
       } catch {
         toastError("Failed to load history");
       } finally {
