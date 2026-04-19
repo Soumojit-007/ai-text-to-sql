@@ -5,8 +5,12 @@ from sqlalchemy import create_engine
 from app.core.config import settings
 
 router = APIRouter(prefix="/upload", tags=["upload"])
-
-engine = create_engine(settings.DATABASE_URL)
+engine = create_engine(
+    settings.DATABASE_URL,
+    pool_pre_ping=True,
+    pool_recycle=300,
+    connect_args={"sslmode": "require"}
+)
 
 @router.post("")
 @router.post("/")
@@ -37,12 +41,19 @@ async def upload_files(files: List[UploadFile]):
                     print(f"Uploading table: {table_name}")
 
                     # ✅ Use connection (NOT engine)
-                    df.to_sql(
+                    for _ in range(5):
+                        try:
+                            df.to_sql(
                         table_name,
                         conn,
                         if_exists="replace",
-                        index=False
+                        index=False,
+                        chunksize=500
                     )
+                            break
+                        except Exception as e:
+                            print("Retrying..." , e)
+                    
 
                 except Exception as file_error:
                     print("FILE ERROR:", file_error)

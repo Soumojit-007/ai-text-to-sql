@@ -6,6 +6,7 @@ from app.tools.schema_retriever import retrieve_schema
 router = APIRouter(prefix="/generate-sql", tags=["generate-sql"])
 
 
+@router.post("")
 @router.post("/")
 def generate_sql_only(query: QueryRequest):
 
