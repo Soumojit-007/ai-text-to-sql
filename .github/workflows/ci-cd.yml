@@ -47,7 +47,7 @@ jobs:
           docker tag ai-backend ${{ secrets.DOCKER_USERNAME }}/ai-backend:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/ai-backend:latest
 
-      # 🚀 8️⃣ DEPLOY TO EC2 (FINAL FIXED)
+      # 🚀 8️⃣ DEPLOY TO EC2 (FINAL)
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -55,21 +55,27 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Stop old processes
+            # Stop old systemd service
             sudo systemctl stop backend || true
             sudo systemctl disable backend || true
+
+            # Free port
             sudo fuser -k 8000/tcp || true
+
+            # Clean old Docker (IMPORTANT)
+            docker system prune -a -f || true
 
             # Pull latest image
             docker pull ${{ secrets.DOCKER_USERNAME }}/ai-backend:latest
 
-            # Remove old container
+            # Remove only our container
             docker stop ai-backend || true
             docker rm ai-backend || true
 
-            # Run NEW container with ENV 🔥
+            # Run container (FINAL)
             docker run -d \
               --name ai-backend \
+              --restart always \
               -p 8000:8000 \
               -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
               -e REDIS_URL="${{ secrets.REDIS_URL }}" \
