@@ -1,21 +1,57 @@
-import axios from "axios"
-const api  = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
-})
+// import axios from "axios"
+// const api  = axios.create({
+//   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
+// })
+
+// api.interceptors.request.use((config) => {
+//   const token = localStorage.getItem("token");
+//   if(token) config.headers.Authorization = `Bearer ${token}`;
+//   return config;
+// })
+
+
+// api.interceptors.response.use(
+//   (res) => res,
+//   (err) =>{
+//     if(err.response?.status === 401){
+//       localStorage.removeItem("token");
+//       window.location.href= "/";
+//     }
+//     return Promise.reject(err);
+//   }
+// );
+
+// export default api;
+
+
+
+
+
+
+
+import axios from "axios";
+
+// 🔥 Ensure HTTPS + fallback
+const BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || "https://api.queryforge.in"
+).replace("http://", "https://");
+
+const api = axios.create({
+  baseURL: `${BASE_URL}/api/v1`,
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if(token) config.headers.Authorization = `Bearer ${token}`;
+  if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
-})
-
+});
 
 api.interceptors.response.use(
   (res) => res,
-  (err) =>{
-    if(err.response?.status === 401){
+  (err) => {
+    if (err.response?.status === 401) {
       localStorage.removeItem("token");
-      window.location.href= "/";
+      window.location.href = "/";
     }
     return Promise.reject(err);
   }
