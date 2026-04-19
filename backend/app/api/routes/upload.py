@@ -8,7 +8,7 @@ router = APIRouter(prefix="/upload", tags=["upload"])
 
 engine = create_engine(settings.DATABASE_URL)
 
-
+@router.post("")
 @router.post("/")
 async def upload_files(files: List[UploadFile]):
     try:
