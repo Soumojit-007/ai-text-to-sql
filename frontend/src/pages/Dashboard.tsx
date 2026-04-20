@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div className="w-full max-w-4xl mx-auto space-y-6 px-2 md:px-0">
 
         {/* Mode Toggle */}
         <ModeToggle />

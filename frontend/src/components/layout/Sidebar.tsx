@@ -2,7 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, History, Upload } from "lucide-react";
 import clsx from "clsx";
 
-export default function Sidebar() {
+interface SidebarProps {
+  onItemClick? : () => void;
+}
+export default function Sidebar({onItemClick}:SidebarProps) {
   const { pathname } = useLocation();
 
   const navItem = (path: string) =>
@@ -17,17 +20,17 @@ export default function Sidebar() {
     <div className="w-64 h-full p-5 flex flex-col gap-3 border-r border-white/10 bg-white/5 backdrop-blur-xl">
       <h2 className="text-xl font-bold mb-4">QueryForge</h2>
 
-      <Link to="/dashboard" className={navItem("/dashboard")}>
+      <Link to="/dashboard" onClick={onItemClick} className={navItem("/dashboard")}>
         <LayoutDashboard size={18} />
         Dashboard
       </Link>
 
-      <Link to="/history" className={navItem("/history")}>
+      <Link to="/history" onClick={onItemClick} className={navItem("/history")}>
         <History size={18} />
         History
       </Link>
 
-      <Link to="/upload" className={navItem("/upload")}>
+      <Link to="/upload" onClick={onItemClick} className={navItem("/upload")}>
         <Upload size={18} />
         Upload
       </Link>

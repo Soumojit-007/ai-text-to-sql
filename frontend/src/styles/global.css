@@ -35,3 +35,7 @@ body {
 input, textarea {
   @apply outline-none;
 }
+
+html, body {
+  overflow-x: hidden;
+}
